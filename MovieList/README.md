@@ -13,10 +13,10 @@ Companion project for the **SwiftUI State Management** article series published 
 - MovieListApp_Observable: iOS 17+ equivalent entry point. Shows how @State replaces @StateObject and .environment() replaces .environmentObject(). Comparison only but not the live entry point.
 - WatchlistViewModel_ObservableObject: Powers the running app. Uses ObservableObject + @Published. Owned by WatchlistView via @StateObject. Shared with MovieDetailView via @ObservedObject.
 - WatchlistViewModel_Observable: iOS 17+ only. Uses @Observable macro. No @Published needed. Owned via @State. Shared as a plain property.
-- MovieDetailView_ObservableObject: Child screen. Receives WatchlistViewModel via @ObservedObject — same instance as parent. Reads UserPreferences via @EnvironmentObject. Uses local @State for the remove confirmation alert.
+- MovieDetailView_ObservableObject: Child screen. Receives WatchlistViewModel via @ObservedObject same instance as parent. Reads UserPreferences via @EnvironmentObject. Uses local @State for the remove confirmation alert.
 - MovieDetailView_Observable: iOS 17+ version of MovieDetailView. Shows how @ObservedObject becomes a plain property when using @Observable means no wrapper needed.
 - UserPreferencesObservableObject: ObservableObject holding app-wide user settings. Injected at root, consumed anywhere via @EnvironmentObject without prop drilling.
-- - UserPreferencesObservable: iOS 17+ version of UserPreferences holding app-wide user settings. Injected at root (i.e. MovieListApp_Observable), consumed anywhere via @Environment.
+- UserPreferencesObservable: iOS 17+ version of UserPreferences holding app-wide user settings. Injected at root (i.e. MovieListApp_Observable), consumed anywhere via @Environment.
 
 <br>
 
@@ -40,7 +40,7 @@ The `_ObservableObject` and `_Observable` file suffixes make the two approaches 
 
 <br>
 
-### Key Patterns Worth Noting
+### Key Patterns To Understand
 
 **1. The draft pattern in SettingsSheetView**
 `draftName` is a local `@State` that holds an uncommitted copy of `preferences.displayName`. Cancelling discards the draft. Saving commits it. This prevents live writes to shared state while the user is still editing means a common production pattern for settings screens and modals.
