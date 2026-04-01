@@ -11,9 +11,6 @@ struct WatchlistView_ObservableObject: View {
     
     @StateObject private var viewModel = WatchlistViewModel_ObservableObject()
     @EnvironmentObject private var preferences: UserPreferencesObservableObject
-    
-    @State private var searchText = ""
-    @State private var selectedGenre: Movie.Genre? = nil
     @State private var showOnlyWatched = false
     @State private var showSettings = false
     
@@ -52,12 +49,12 @@ struct WatchlistView_ObservableObject: View {
         VStack(spacing: 0) {
             progressBanner
             FilterBarView(
-                selectedGenre: $selectedGenre,
+                selectedGenre: $viewModel.selectedGenre,
                 showOnlyWatched: $showOnlyWatched
             )
             
             List {
-                ForEach(filteredMovies) { movie in
+                ForEach(viewModel.filteredMovies) { movie in
                     NavigationLink(
                         destination: MovieDetailView_ObservableObject(
                             movie: movie,
@@ -69,8 +66,8 @@ struct WatchlistView_ObservableObject: View {
                 }
             }
             .listStyle(.plain)
-            .searchable(text: $searchText, prompt: "Search movies...")
-            .animation(.default, value: filteredMovies.map { $0.id })
+            .searchable(text: $viewModel.searchText, prompt: "Search movies...")
+            .animation(.default, value: viewModel.filteredMovies.map { $0.id })
         }
     }
     
@@ -154,16 +151,5 @@ struct WatchlistView_ObservableObject: View {
                 .multilineTextAlignment(.center)
         }
         .padding()
-    }
-    
-    private var filteredMovies: [Movie] {
-        viewModel.movies
-            .filter { showOnlyWatched ? $0.isWatched : true }
-            .filter { selectedGenre == nil ? true : $0.genre == selectedGenre }
-            .filter {
-                searchText.isEmpty
-                ? true
-                : $0.title.localizedCaseInsensitiveContains(searchText)
-            }
     }
 }
