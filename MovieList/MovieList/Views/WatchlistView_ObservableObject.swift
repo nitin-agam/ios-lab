@@ -57,7 +57,7 @@ struct WatchlistView_ObservableObject: View {
                 ForEach(viewModel.filteredMovies) { movie in
                     NavigationLink(
                         destination: MovieDetailView_ObservableObject(
-                            movie: movie,
+                            movieID: movie.id,
                             viewModel: viewModel
                         )
                     ) {

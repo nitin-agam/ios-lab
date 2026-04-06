@@ -10,14 +10,15 @@ import SwiftUI
 struct MovieDetailView_ObservableObject: View {
     
     // passed in from parent, same instance as WatchlistView's @StateObject
-    let movie: Movie
+    let movieID: UUID
     
     @ObservedObject var viewModel: WatchlistViewModel_ObservableObject
     @EnvironmentObject private var preferences: UserPreferencesObservableObject
-    
-    // local UI state that belongs only to this screen
     @State private var showRemoveAlert = false
     
+    private var movie: Movie? {
+        viewModel.movies.first { $0.id == movieID }
+    }
     
     var body: some View {
         ScrollView {
@@ -29,15 +30,16 @@ struct MovieDetailView_ObservableObject: View {
             }
             .padding()
         }
-        .navigationTitle(movie.title)
+        .navigationTitle(movie?.title ?? "Movie Details")
         .navigationBarTitleDisplayMode(.large)
         .alert("Remove from Watchlist?", isPresented: $showRemoveAlert) {
             Button("Remove", role: .destructive) {
+                guard let movie = movie else { return }
                 viewModel.removeFromWatchlist(movie)
             }
             Button("Cancel", role: .cancel) {}
         } message: {
-            Text("This will remove \"\(movie.title)\" from your watchlist.")
+            Text("This will remove \"\(movie?.title ?? "")\" from your watchlist.")
         }
     }
     
@@ -47,13 +49,13 @@ struct MovieDetailView_ObservableObject: View {
                 RoundedRectangle(cornerRadius: 14)
                     .fill(genreColor.opacity(0.15))
                     .frame(width: 64, height: 64)
-                Image(systemName: movie.genre.icon)
+                Image(systemName: movie?.genre.icon ?? "")
                     .font(.system(size: 28))
                     .foregroundColor(genreColor)
             }
             
             VStack(alignment: .leading, spacing: 4) {
-                Text(movie.genre.rawValue.uppercased())
+                Text(movie?.genre.rawValue.uppercased() ?? "")
                     .font(.caption)
                     .fontWeight(.semibold)
                     .foregroundColor(genreColor)
@@ -64,7 +66,7 @@ struct MovieDetailView_ObservableObject: View {
                         Image(systemName: "star.fill")
                             .foregroundColor(.yellow)
                             .font(.subheadline)
-                        Text(String(format: "%.1f", movie.rating))
+                        Text(String(format: "%.1f", movie?.rating ?? 0))
                             .font(.title3)
                             .fontWeight(.bold)
                         Text("/ 10")
@@ -76,7 +78,7 @@ struct MovieDetailView_ObservableObject: View {
             
             Spacer()
             
-            if movie.isWatched {
+            if let movie = movie, movie.isWatched {
                 VStack(spacing: 2) {
                     Image(systemName: "checkmark.circle.fill")
                         .foregroundColor(.green)
@@ -91,7 +93,7 @@ struct MovieDetailView_ObservableObject: View {
     
     private var metaSection: some View {
         HStack(spacing: 0) {
-            metaItem(icon: "calendar", label: "Year", value: String(movie.year))
+            metaItem(icon: "calendar", label: "Year", value: String(movie?.year ?? 0))
             Divider().frame(height: 36)
             metaItem(icon: "clock", label: "Duration", value: formattedDuration)
         }
@@ -104,7 +106,7 @@ struct MovieDetailView_ObservableObject: View {
         VStack(alignment: .leading, spacing: 8) {
             Text("Synopsis")
                 .font(.headline)
-            Text(movie.synopsis)
+            Text(movie?.synopsis ?? "")
                 .font(.body)
                 .foregroundColor(.secondary)
                 .lineSpacing(4)
@@ -113,7 +115,8 @@ struct MovieDetailView_ObservableObject: View {
     
     private var actionSection: some View {
         VStack(spacing: 12) {
-            if !movie.isWatched {
+            
+            if let movie = movie, movie.isWatched == false {
                 Button {
                     viewModel.markAsWatched(movie)
                 } label: {
@@ -158,18 +161,47 @@ struct MovieDetailView_ObservableObject: View {
     }
     
     private var formattedDuration: String {
+        guard let movie = movie else { return "" }
         let hours = movie.duration / 60
         let minutes = movie.duration % 60
         return hours > 0 ? "\(hours)h \(minutes)m" : "\(minutes)m"
     }
     
     private var genreColor: Color {
-        switch movie.genre {
+        switch movie?.genre {
         case .action:   return .red
         case .drama:    return .purple
         case .thriller: return .orange
         case .scifi:    return .blue
         case .comedy:   return .yellow
+        case .none:     return .gray
+        }
+    }
+}
+
+
+// single source of truth - always read from the ViewModel
+struct MovieDetailView: View {
+    
+    let movieID: UUID // uust the ID - not the full value
+    @ObservedObject var viewModel: WatchlistViewModel_ObservableObject
+    
+    // derive the current state from the ViewModel on every render
+    private var movie: Movie? {
+        viewModel.movies.first { $0.id == movieID }
+    }
+    
+    var body: some View {
+        if let movie {
+            VStack {
+                Text(movie.isWatched ? "Watched ✓" : "Not watched")
+                Button("Mark as Watched") {
+                    // single update - ViewModel handles everything
+                    viewModel.markAsWatched(movie)
+                    
+                    // @Published fires, both views rebuild, both show correct state
+                }
+            }
         }
     }
 }
