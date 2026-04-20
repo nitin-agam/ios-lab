@@ -16,6 +16,7 @@ struct WatchlistView_ObservableObject: View {
     @State private var selectedGenre: Movie.Genre? = nil
     @State private var showOnlyWatched = false
     @State private var showSettings = false
+    @State private var showAddMovie = false
     
     private var navigationTitle: String {
         preferences.displayName.isEmpty ? "My Watchlist" : "\(preferences.displayName)'s Watchlist"
@@ -39,6 +40,9 @@ struct WatchlistView_ObservableObject: View {
         }
         .sheet(isPresented: $showSettings) {
             SettingsSheetView()
+        }
+        .sheet(isPresented: $showAddMovie) {
+            AddMovieSheetView(watchlistViewModel: viewModel)
         }
         .task {
             // fetch only if not already loaded
@@ -107,6 +111,14 @@ struct WatchlistView_ObservableObject: View {
     
     @ToolbarContentBuilder
     private var filterToolbar: some ToolbarContent {
+        ToolbarItem(placement: .navigationBarLeading) {
+            Button {
+                showAddMovie = true
+            } label: {
+                Image(systemName: "plus")
+            }
+        }
+        
         ToolbarItem(placement: .navigationBarTrailing) {
             Button {
                 showSettings = true
