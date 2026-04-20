@@ -44,3 +44,12 @@ class WatchlistViewModel_ObservableObject: ObservableObject {
         movies.removeAll { $0.id == movie.id }
     }
 }
+
+// Adding Movies
+extension WatchlistViewModel_ObservableObject {
+    
+    func addMovie(_ movie: Movie) {
+        // insert at top so the new movie appears first in the list
+        movies.insert(movie, at: 0)
+    }
+}
