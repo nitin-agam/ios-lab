@@ -9,6 +9,7 @@ Each project is a focused, runnable example covering real-world patterns in Swif
 - [SwiftUI State Management Using @Binding, @EnvironmentObject, @Observable](https://nitinagam.medium.com/swiftui-state-management-using-binding-environmentobject-observable-7bd61ba40ab5)
 - [SwiftUI State Management Mistakes Every Developer Makes (And How to Fix Them)](https://medium.com/swiftable/swiftui-state-management-mistakes-every-developer-makes-and-how-to-fix-them-d33741951af6)
 - [SwiftUI State Management: Handling Complex Screens, Forms & Multi-Step Flows](https://medium.com/swiftable/swiftui-state-management-handling-complex-screens-forms-multi-step-flows-ab54dd517430)
+- [SwiftUI State Management: Handling App Lifecycle, Persistence & State Restoration](https://medium.com/swiftable/swiftui-state-management-handling-app-lifecycle-persistence-state-restoration-be80fa835625)
 
 
 *More articles and demo projects coming soon.*
