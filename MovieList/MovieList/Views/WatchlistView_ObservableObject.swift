@@ -13,10 +13,20 @@ struct WatchlistView_ObservableObject: View {
     @EnvironmentObject private var preferences: UserPreferencesObservableObject
     
     @State private var searchText = ""
-    @State private var selectedGenre: Movie.Genre? = nil
     @State private var showOnlyWatched = false
     @State private var showSettings = false
     @State private var showAddMovie = false
+    @SceneStorage("watchlist.selectedGenreRaw") private var selectedGenreRaw: String?
+    
+    private var selectedGenre: Movie.Genre? {
+        get {
+            guard let raw = selectedGenreRaw else { return nil }
+            return Movie.Genre(rawValue: raw)
+        }
+        nonmutating set {
+            selectedGenreRaw = newValue?.rawValue
+        }
+    }
     
     private var navigationTitle: String {
         preferences.displayName.isEmpty ? "My Watchlist" : "\(preferences.displayName)'s Watchlist"
@@ -55,8 +65,12 @@ struct WatchlistView_ObservableObject: View {
     private var movieListView: some View {
         VStack(spacing: 0) {
             progressBanner
+            
             FilterBarView(
-                selectedGenre: $selectedGenre,
+                selectedGenre: Binding(
+                    get: { selectedGenre },
+                    set: { selectedGenre = $0 }
+                ),
                 showOnlyWatched: $showOnlyWatched
             )
             

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Movie: Identifiable {
+struct Movie: Identifiable, Codable {
     
     let id: UUID
     let title: String
@@ -18,7 +18,7 @@ struct Movie: Identifiable {
     let duration: Int
     var isWatched: Bool
 
-    enum Genre: String, CaseIterable {
+    enum Genre: String, Codable, CaseIterable {
         case action   = "Action"
         case drama    = "Drama"
         case thriller = "Thriller"

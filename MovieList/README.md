@@ -2,10 +2,11 @@
 
 Companion project for the **SwiftUI State Management** article series published on Medium.
 
-- **Part 1:** SwiftUI State Management Using @State, @StateObject, and @ObservedObject → [Read on Medium](https://medium.com/swiftable/stop-guessing-heres-exactly-when-to-use-state-stateobject-and-observedobject-in-swiftui-b9452fcd284a)
-- **Part 2:** SwiftUI State Management Using @Binding, @EnvironmentObject, @Observable → [Read on Medium](https://nitinagam.medium.com/swiftui-state-management-using-binding-environmentobject-observable-7bd61ba40ab5)
-- **Part 3:** SwiftUI State Management Mistakes Every Developer Makes (And How to Fix Them) → [Read on Medium](https://medium.com/swiftable/swiftui-state-management-mistakes-every-developer-makes-and-how-to-fix-them-d33741951af6)
-- **Part 4:** SwiftUI State Management: Handling Complex Screens, Forms & Multi-Step Flows → [Read on Medium](https://medium.com/swiftable/swiftui-state-management-handling-complex-screens-forms-multi-step-flows-ab54dd517430)
+- **Part 1:** SwiftUI State Management Using @State, @StateObject, and @ObservedObject → [Read here](https://medium.com/swiftable/stop-guessing-heres-exactly-when-to-use-state-stateobject-and-observedobject-in-swiftui-b9452fcd284a)
+- **Part 2:** SwiftUI State Management Using @Binding, @EnvironmentObject, @Observable → [Read here](https://nitinagam.medium.com/swiftui-state-management-using-binding-environmentobject-observable-7bd61ba40ab5)
+- **Part 3:** SwiftUI State Management Mistakes Every Developer Makes (And How to Fix Them) → [Read here](https://medium.com/swiftable/swiftui-state-management-mistakes-every-developer-makes-and-how-to-fix-them-d33741951af6)
+- **Part 4:** SwiftUI State Management: Handling Complex Screens, Forms & Multi-Step Flows → [Read here](https://medium.com/swiftable/swiftui-state-management-handling-complex-screens-forms-multi-step-flows-ab54dd517430)
+- **Part 5:** SwiftUI State Management: Handling App Lifecycle, Persistence & State Restoration → [Read here](https://medium.com/swiftable/swiftui-state-management-handling-app-lifecycle-persistence-state-restoration-be80fa835625)
 
 <br>
 
