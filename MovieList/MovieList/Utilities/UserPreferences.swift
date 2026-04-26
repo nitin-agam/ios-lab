@@ -10,8 +10,29 @@ import Combine
 
 // v1.0
 class UserPreferencesObservableObject: ObservableObject {
-    @Published var displayName: String = "Swiftable"
-    @Published var showRatings: Bool = true
+    
+    private enum Keys {
+        static let displayName = "preferences.displayName"
+        static let showRatings = "preferences.showRatings"
+    }
+    
+    @Published var displayName: String {
+        didSet {
+            UserDefaults.standard.set(displayName, forKey: Keys.displayName)
+        }
+    }
+    
+    @Published var showRatings: Bool {
+        didSet {
+            UserDefaults.standard.set(showRatings, forKey: Keys.showRatings)
+        }
+    }
+    
+    init() {
+        let defaults = UserDefaults.standard
+        self.displayName = defaults.string(forKey: Keys.displayName) ?? "Swiftable"
+        self.showRatings = defaults.object(forKey: Keys.showRatings) as? Bool ?? true
+    }
 }
 
 // v2.0
