@@ -12,7 +12,7 @@ enum AddMovieStep {
     case confirm
 }
 
-struct AddMovieForm {
+struct AddMovieForm: Codable {
 
     var title = ""
     var synopsis = ""
@@ -23,7 +23,7 @@ struct AddMovieForm {
 
     var touchedFields: Set<Field> = []
 
-    enum Field {
+    enum Field: String, Codable {
         case title, year, rating, duration, genre
     }
 

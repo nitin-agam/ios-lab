@@ -16,6 +16,7 @@ struct AddMovieSheetView: View {
     @ObservedObject var watchlistViewModel: WatchlistViewModel_ObservableObject
 
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.scenePhase) private var scenePhase
 
     var body: some View {
         NavigationStack {
@@ -30,6 +31,16 @@ struct AddMovieSheetView: View {
             .navigationTitle(navigationTitle)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar { sheetToolbar }
+            .onAppear {
+                // restore any draft from a previous session
+                addMovieViewModel.restoreDraft()
+            }
+            .onChange(of: scenePhase) { _, newPhase in
+                // save the draft when the app backgrounds
+                if newPhase == .background {
+                    addMovieViewModel.saveDraft()
+                }
+            }
         }
     }
 
