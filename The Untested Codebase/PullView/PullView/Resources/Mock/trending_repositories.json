@@ -1,0 +1,53 @@
+[
+    {
+        "id": 1001,
+        "name": "swift-composable-architecture",
+        "full_name": "pointfreeco/swift-composable-architecture",
+        "owner": {
+            "id": 201,
+            "login": "pointfreeco",
+            "avatar_url": "https://avatars.githubusercontent.com/u/201",
+            "html_url": "https://github.com/pointfreeco"
+        },
+        "description": "A library for building applications in a consistent and understandable way.",
+        "stargazers_count": 12500,
+        "forks_count": 1450,
+        "language": "Swift",
+        "html_url": "https://github.com/pointfreeco/swift-composable-architecture",
+        "updated_at": "2026-06-28T10:00:00Z"
+    },
+    {
+        "id": 1002,
+        "name": "swift-async-algorithms",
+        "full_name": "apple/swift-async-algorithms",
+        "owner": {
+            "id": 202,
+            "login": "apple",
+            "avatar_url": "https://avatars.githubusercontent.com/u/202",
+            "html_url": "https://github.com/apple"
+        },
+        "description": "Async algorithms for Swift",
+        "stargazers_count": 3200,
+        "forks_count": 210,
+        "language": "Swift",
+        "html_url": "https://github.com/apple/swift-async-algorithms",
+        "updated_at": "2026-06-27T15:30:00Z"
+    },
+    {
+        "id": 1003,
+        "name": "swift-testing",
+        "full_name": "apple/swift-testing",
+        "owner": {
+            "id": 202,
+            "login": "apple",
+            "avatar_url": "https://avatars.githubusercontent.com/u/202",
+            "html_url": "https://github.com/apple"
+        },
+        "description": "A modern, expressive testing package for Swift",
+        "stargazers_count": 2800,
+        "forks_count": 145,
+        "language": "Swift",
+        "html_url": "https://github.com/apple/swift-testing",
+        "updated_at": "2026-06-29T08:15:00Z"
+    }
+]
